@@ -2,6 +2,8 @@
 import os 
 # biblioteca para pausar o programa por um tempo
 import time
+# Biblioteca para podermos embaralhar as perguntas
+import random
  # Importa a lista de perguntas do arquivo perguntas.py
 from perguntas import perguntas 
 
@@ -32,6 +34,8 @@ def verificar_resposta(resposta_usuario, resposta_correta):
 def comecar_jogo():
     # iniciando a pontuação
     pontuacao = 0  
+    # Embaralha a lista de perguntas
+    random.shuffle(perguntas)  
 
     # for para percorrer nossa lista perguntas
     # enumerate é uma função em python que retorna o índice "0, 1, 2..." e o valor
