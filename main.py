@@ -4,8 +4,10 @@ import os
 import time
 # Biblioteca para podermos embaralhar as perguntas
 import random
- # Importa a lista de perguntas do arquivo perguntas.py
-from perguntas import perguntas 
+# Importa a função que lê as perguntas da tabela perguntas do banco
+from banco import buscar_perguntas
+# Busca as perguntas do banco de dados e armazena na variável perguntas
+perguntas = buscar_perguntas()
 
 
 # Função para para limpar o terminal em sistemas Windows e Unix/Linux
