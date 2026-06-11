@@ -32,7 +32,10 @@ def buscar_perguntas():
     # Lista que armazenará as perguntas formatadas
     perguntas = []
 
-    # Percorre cada registro retornado pelo banco
+    # Percorre cada registro retornado pelo banco.
+    # Em cada repetição, "registro" representa uma linha da tabela.
+    # O loop pega um registro por vez, monta um dicionário com os dados
+    # desse registro e adiciona esse dicionário à lista "perguntas".
     for registro in registros:
 
         # Cria um dicionário no mesmo formato utilizado pelo quiz
@@ -53,7 +56,8 @@ def buscar_perguntas():
             "resposta": registro[6]
         }
 
-        # Adiciona o dicionário na lista de perguntas
+        # Adiciona o dicionário criado na lista de perguntas.
+        # O append não substitui os anteriores, apenas adiciona um novo item.
         perguntas.append(pergunta)
 
     # Retorna a lista completa de perguntas
