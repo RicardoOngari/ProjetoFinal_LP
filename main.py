@@ -5,7 +5,7 @@ import time
 # Biblioteca para podermos embaralhar as perguntas
 import random
 # Importa a função que lê as perguntas da tabela perguntas do banco
-from banco import buscar_perguntas, salvar_resultado, buscar_ranking
+from database.banco import buscar_perguntas, salvar_resultado, buscar_ranking
 # Busca as perguntas do banco de dados e armazena na variável perguntas
 perguntas = buscar_perguntas()
 

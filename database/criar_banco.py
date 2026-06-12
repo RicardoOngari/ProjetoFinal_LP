@@ -3,7 +3,7 @@ import sqlite3
 
 # Cria um novo banco de dados chamado "quiz.db" caso ele não exista.
 # Se já existir, apenas abre a conexão com ele.
-conexao = sqlite3.connect("quiz.db")
+conexao = sqlite3.connect("database/quiz.db")
 
 # Cria um cursor, responsável por executar comandos SQL no banco de dados.
 cursor = conexao.cursor()

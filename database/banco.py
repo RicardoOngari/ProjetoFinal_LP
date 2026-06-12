@@ -5,7 +5,7 @@ import sqlite3
 # Função para conectar ao banco de dados
 def conectar_banco():
     # Cria uma conexão com o arquivo quiz.db
-    conexao = sqlite3.connect("quiz.db")
+    conexao = sqlite3.connect("database/quiz.db")
 
     # Retorna a conexão para ser usada em outras funções
     return conexao
