@@ -62,3 +62,52 @@ def buscar_perguntas():
 
     # Retorna a lista completa de perguntas
     return perguntas
+
+
+# Função para salvar o resultado do jogador no ranking
+def salvar_resultado(nome, pontos):
+
+    # Conecta ao banco
+    conexao = conectar_banco()
+
+    # Cria cursor para executar comandos SQL
+    cursor = conexao.cursor()
+
+    # Insere o nome e a pontuação na tabela ranking
+    cursor.execute("""
+        INSERT INTO ranking (nome, pontos)
+        VALUES (?, ?)
+    """, (nome, pontos))
+
+    # Salva as alterações
+    conexao.commit()
+
+    # Fecha a conexão
+    conexao.close()
+
+
+
+# Função para buscar o ranking dos jogadores
+def buscar_ranking():
+
+    # Conecta ao banco
+    conexao = conectar_banco()
+
+    # Cria cursor para executar comandos SQL
+    cursor = conexao.cursor()
+
+    # Busca os jogadores ordenados pela maior pontuação
+    cursor.execute("""
+        SELECT nome, pontos, data_jogo
+        FROM ranking
+        ORDER BY pontos DESC
+    """)
+
+    ranking = cursor.fetchall()
+
+    # Fecha a conexão
+    conexao.close()
+
+    # Retorna os resultados encontrados
+    return ranking
+

@@ -5,7 +5,7 @@ import time
 # Biblioteca para podermos embaralhar as perguntas
 import random
 # Importa a função que lê as perguntas da tabela perguntas do banco
-from banco import buscar_perguntas
+from banco import buscar_perguntas, salvar_resultado, buscar_ranking
 # Busca as perguntas do banco de dados e armazena na variável perguntas
 perguntas = buscar_perguntas()
 
@@ -74,9 +74,17 @@ def comecar_jogo():
 
 
 # AQUI COMEÇA NOSSO CODIGO PRINCIPAL
+# primeiro pega o nome do jogador
 # Inicia o jogo chamando a função comecar_jogo()
-# atri
+nome_jogador = input("DIGITE SEU NOME: ")
+
 pontuacao = comecar_jogo()  
+
+# salvando o nome e resultado do jogador após o jogo
+salvar_resultado(nome_jogador, pontuacao)
+
+# busca o ranking do banco e armazena na variável ranking
+ranking = buscar_ranking()
 
 
 limpar_terminal()
@@ -85,6 +93,18 @@ print("=" * 30)
 print("--- FIM DE JOGO ---")
 print(f"Você acertou {pontuacao} de {len(perguntas)} perguntas")
 print("=" * 30)
+
+
+print("\n--- RANKING ---")
+
+# Percorre a lista de jogadores do ranking
+# enumerate cria automaticamente a posição (1º, 2º, 3º...)
+# start=1 faz a contagem começar em 1 em vez de 0
+for posicao, jogador in enumerate(ranking, start=1):
+
+    # jogador[0] corresponde ao nome do jogador
+    # jogador[1] corresponde à pontuação do jogador
+    print(f"{posicao}º Lugar - {jogador[0]} ({jogador[1]} pontos)")
 
 
    
