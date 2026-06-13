@@ -1,30 +1,49 @@
-# Biblioteca para trabalhar com banco de dados SQLite
+# ------------OPERAÇOES DO BANCO---------------
+
+
+# =====================================================
+# IMPORTAÇÃO DE BIBLIOTECAS
+# =====================================================
+
+# Biblioteca utilizada para trabalhar com banco de dados SQLite
 import sqlite3
 
 
-# Função para conectar ao banco de dados
-def conectar_banco():
+# =====================================================
+# CONEXÃO COM O BANCO DE DADOS
+# =====================================================
 
-    # Cria uma conexão com o arquivo quiz.db
+def conectar_banco():
+    """
+    Cria e retorna uma conexão com o banco de dados.
+    """
+
+    # Conecta ao arquivo do banco de dados
     conexao = sqlite3.connect("database/quiz.db")
 
-    # Retorna a conexão para ser usada em outras funções
     return conexao
 
 
-# Função para buscar todas as perguntas cadastradas no banco
-def buscar_perguntas():
+# =====================================================
+# CONSULTA DE PERGUNTAS
+# =====================================================
 
-    # Conecta ao banco
+def buscar_perguntas():
+    """
+    Busca todas as perguntas cadastradas no banco
+    e retorna uma lista formatada para o quiz.
+    """
+
+    # Conecta ao banco de dados
     conexao = conectar_banco()
 
     # Cria cursor para executar comandos SQL
     cursor = conexao.cursor()
 
-    # Busca todas as perguntas
+    # Busca todas as perguntas cadastradas
     cursor.execute("SELECT * FROM perguntas")
 
-    # Guarda todos os registros encontrados
+    # Obtém todos os registros encontrados
     registros = cursor.fetchall()
 
     # Fecha a conexão
@@ -36,13 +55,13 @@ def buscar_perguntas():
     # Percorre todos os registros encontrados
     for registro in registros:
 
-        # Cria um dicionário no formato esperado pelo quiz
+        # Monta o dicionário no formato esperado pelo quiz
         pergunta = {
 
-            # Enunciado da pergunta
+            # Texto da pergunta
             "pergunta": registro[1],
 
-            # Lista de alternativas
+            # Alternativas disponíveis
             "opcoes": [
                 f"A) {registro[2]}",
                 f"B) {registro[3]}",
@@ -50,49 +69,63 @@ def buscar_perguntas():
                 f"D) {registro[5]}"
             ],
 
-            # Resposta correta
+            # Alternativa correta
             "resposta": registro[6]
         }
 
-        # Adiciona a pergunta na lista
+        # Adiciona a pergunta à lista
         perguntas.append(pergunta)
 
-    # Retorna todas as perguntas
+    # Retorna todas as perguntas formatadas
     return perguntas
 
 
-# Função para salvar o resultado do jogador
+# =====================================================
+# SALVAR RESULTADO DO JOGADOR
+# =====================================================
+
 def salvar_resultado(nome, pontos):
+    """
+    Salva no banco de dados o nome do jogador
+    e sua pontuação final.
+    """
 
     # Conecta ao banco
     conexao = conectar_banco()
 
-    # Cria cursor
+    # Cria cursor para execução SQL
     cursor = conexao.cursor()
 
-    # Insere nome e pontuação
+    # Insere o resultado na tabela ranking
     cursor.execute("""
         INSERT INTO ranking (nome, pontos)
         VALUES (?, ?)
     """, (nome, pontos))
 
-    # Salva alterações
+    # Salva as alterações realizadas
     conexao.commit()
 
-    # Fecha conexão
+    # Fecha a conexão
     conexao.close()
 
 
-# Função para buscar os 10 melhores jogadores
+# =====================================================
+# CONSULTA DO RANKING
+# =====================================================
+
 def buscar_ranking():
+    """
+    Retorna os 10 melhores jogadores
+    ordenados pela maior pontuação.
+    """
 
     # Conecta ao banco
     conexao = conectar_banco()
 
-    # Cria cursor
+    # Cria cursor para execução SQL
     cursor = conexao.cursor()
 
-    # Busca os jogadores ordenados pela maior pontuação
+    # Busca os 10 melhores jogadores
     cursor.execute("""
         SELECT nome, pontos
         FROM ranking
@@ -100,10 +133,10 @@ def buscar_ranking():
         LIMIT 10
     """)
 
-    # Guarda os resultados encontrados
+    # Obtém os resultados encontrados
     ranking = cursor.fetchall()
 
-    # Fecha conexão
+    # Fecha a conexão
     conexao.close()
 
     # Retorna o ranking
