@@ -93,6 +93,7 @@ def finalizar_quiz():
     # Esconde os componentes do quiz
     numero_pergunta_label.pack_forget()
     pergunta_label.pack_forget()
+    feedback_label.pack_forget()
     btn_a.pack_forget()
     btn_b.pack_forget()
     btn_c.pack_forget()
